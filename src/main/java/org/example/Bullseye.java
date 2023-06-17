@@ -6,12 +6,38 @@ import java.util.List;
 public class Bullseye implements Juego {
     private JugadorBullseye jugador;
     private List<Caballo> caballos;
+    private int caballoElegido;
+    private int apuestaElegida;
     private int[] apuestas = {500, 1000, 5000, 10000, 25000, 50000};
     private int[] multiplicadores = {2, 3, 4, 5, 7, 10};
 
-    public Bullseye(JugadorBullseye jugador) {
+    public Bullseye(JugadorBullseye jugador, int caballoElegido, int apuestaElegida) {
         this.jugador = jugador;
+        this.caballoElegido = caballoElegido;
+        this.apuestaElegida = apuestaElegida;
         this.caballos = crearCaballos();
+    }
+
+    public void setCaballoElegido(int caballoElegido) {
+        this.caballoElegido = caballoElegido;
+    }
+
+    public void setApuestaElegida(int apuestaElegida) {
+        this.apuestaElegida = apuestaElegida;
+    }
+
+    public void mostrarCaballos() {
+        System.out.println("Lista de Caballos:");
+        for (Caballo caballo : caballos) {
+            System.out.println(caballo.getNumero() + ". " + caballo.getNombre());
+        }
+    }
+
+    public void mostrarApuestas() {
+        System.out.println("Lista de Apuestas:");
+        for (int i = 0; i < apuestas.length; i++) {
+            System.out.println((i + 1) + ". " + apuestas[i]);
+        }
     }
 
     public List<Caballo> crearCaballos() {
@@ -25,10 +51,19 @@ public class Bullseye implements Juego {
     }
 
     public void jugar() {
-        // Supongamos que el jugador siempre apuesta el monto máximo
-        int apuesta = apuestas[apuestas.length-1];
-        int multiplicador = multiplicadores[apuestas.length-1];
+        if (caballoElegido < 1 || caballoElegido > caballos.size()) {
+            System.out.println("Selección de caballo inválida. Inténtalo nuevamente.");
+            return;
+        }
 
+        if (apuestaElegida < 1 || apuestaElegida > apuestas.length) {
+            System.out.println("Selección de apuesta inválida. Inténtalo nuevamente.");
+            return;
+        }
+
+        jugador.setCaballo(caballos.get(caballoElegido - 1));
+        int apuesta = apuestas[apuestaElegida - 1];
+        int multiplicador = multiplicadores[apuestaElegida - 1];
         // Generar un caballo ganador aleatorio
         int caballoGanador = (int)(Math.random() * 6 + 1);
 
@@ -41,4 +76,5 @@ public class Bullseye implements Juego {
             System.out.println("Perdiste. Ahora tienes $" + jugador.getDinero());
         }
     }
+
 }

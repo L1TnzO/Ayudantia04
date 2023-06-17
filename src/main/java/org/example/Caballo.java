@@ -14,4 +14,12 @@ class Caballo {
     public int getNumero() {
         return numero;
     }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
 }
