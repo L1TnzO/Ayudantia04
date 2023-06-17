@@ -9,9 +9,11 @@ public class JugadorBullseye extends Jugador {
         this.dinero = dinero;
         this.caballo = caballo;
     }
-
     public Caballo getCaballo() {
         return caballo;
+    }
+    public void setCaballo(Caballo caballo) {
+        this.caballo = caballo;
     }
     public int getDinero() {
         return dinero;

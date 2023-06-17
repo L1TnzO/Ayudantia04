@@ -34,6 +34,9 @@ public class Blackjack implements Juego {
         Carta cartaJugador = mazo.remove(mazo.size()-1);
         Carta cartaComputadora = mazo.remove(mazo.size()-1);
 
+        System.out.println(jugador.getNombre() + " sacó una carta con valor " + cartaJugador.getValor());
+        System.out.println("La casa sacó una carta con valor " + cartaComputadora.getValor());
+
         if (cartaJugador.getValor() > CARTA_MAXIMA || (cartaComputadora.getValor() <= CARTA_MAXIMA && cartaComputadora.getValor() > cartaJugador.getValor())) {
             System.out.println("¡La casa gana!");
         } else {
