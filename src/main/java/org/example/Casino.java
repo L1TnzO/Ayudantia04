@@ -2,6 +2,8 @@ package org.example;
 
 import java.util.Scanner;
 
+import java.util.Scanner;
+
 public class Casino {
     public void iniciar() {
         Scanner scanner = new Scanner(System.in);
@@ -19,8 +21,13 @@ public class Casino {
             System.out.println("2. Bullseye");
             System.out.println("3. Salir");
 
-            int opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir nueva línea después de leer un entero
+            String opcionStr = scanner.nextLine();
+            if (!Validaciones.esOpcionValida(opcionStr, 1, 3)) {
+                System.out.println("Opción inválida. Por favor, elige nuevamente.");
+                continue;
+            }
+
+            int opcion = Integer.parseInt(opcionStr);
 
             switch (opcion) {
                 case 1:
@@ -38,13 +45,21 @@ public class Casino {
                     while (juegoBullseye) {
                         System.out.println("Elige un caballo (1-6):");
                         bullseye.mostrarCaballos();
-                        int caballoElegido = scanner.nextInt();
-                        scanner.nextLine(); // Consumir nueva línea después de leer un entero
+                        String caballoElegidoStr = scanner.nextLine();
+                        if (!Validaciones.esOpcionValida(caballoElegidoStr, 1, 6)) {
+                            System.out.println("Selección de caballo inválida. Inténtalo nuevamente.");
+                            continue;
+                        }
+                        int caballoElegido = Integer.parseInt(caballoElegidoStr);
 
                         System.out.println("Elige una apuesta (1-6):");
                         bullseye.mostrarApuestas();
-                        int apuestaElegida = scanner.nextInt();
-                        scanner.nextLine(); // Consumir nueva línea después de leer un entero
+                        String apuestaElegidaStr = scanner.nextLine();
+                        if (!Validaciones.esOpcionValida(apuestaElegidaStr, 1, 6)) {
+                            System.out.println("Selección de apuesta inválida. Inténtalo nuevamente.");
+                            continue;
+                        }
+                        int apuestaElegida = Integer.parseInt(apuestaElegidaStr);
 
                         bullseye.setCaballoElegido(caballoElegido);
                         bullseye.setApuestaElegida(apuestaElegida);
@@ -69,6 +84,7 @@ public class Casino {
         System.out.println("¡Gracias por jugar en el casino!");
     }
 }
+
 
 
 
