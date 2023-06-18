@@ -30,17 +30,68 @@ public class Blackjack implements Juego {
     }
 
     public void jugar() {
-        // Jugador y computadora toman una carta del mazo
-        Carta cartaJugador = mazo.remove(mazo.size()-1);
-        Carta cartaComputadora = mazo.remove(mazo.size()-1);
+        List<Carta> manoJugador = new ArrayList<>();
+        List<Carta> manoCasa = new ArrayList<>();
 
-        System.out.println(jugador.getNombre() + " sacó una carta con valor " + cartaJugador.getValor());
-        System.out.println("La casa sacó una carta con valor " + cartaComputadora.getValor());
+        // Dar tres cartas al jugador y a la casa
+        for (int i = 0; i < 3; i++) {
+            manoJugador.add(darCarta());
+            manoCasa.add(darCarta());
+        }
 
-        if (cartaJugador.getValor() > CARTA_MAXIMA || (cartaComputadora.getValor() <= CARTA_MAXIMA && cartaComputadora.getValor() > cartaJugador.getValor())) {
-            System.out.println("¡La casa gana!");
+        // Calcular el valor de la mano del jugador y de la casa
+        int valorManoJugador = calcularValorMano(manoJugador);
+        int valorManoCasa = calcularValorMano(manoCasa);
+
+        // Mostrar las cartas del jugador
+        System.out.println(jugador.getNombre() + " tiene las siguientes cartas:");
+        for (Carta carta : manoJugador) {
+            System.out.println(carta.getPinta() + " - Valor: " + carta.getValor());
+        }
+
+        // Mostrar las cartas de la casa
+        System.out.println("La casa tiene las siguientes cartas:");
+        for (Carta carta : manoCasa) {
+            System.out.println(carta.getPinta() + " - Valor: " + carta.getValor());
+        }
+
+        // Determinar el ganador
+        if (valorManoJugador > CARTA_MAXIMA) {
+            System.out.println("¡La casa gana! El jugador se pasó de 21.");
+        } else if (valorManoCasa > CARTA_MAXIMA) {
+            System.out.println("¡" + jugador.getNombre() + " gana! La casa se pasó de 21.");
+        } else if (valorManoJugador > valorManoCasa) {
+            System.out.println("¡" + jugador.getNombre() + " gana! Su mano es mayor que la de la casa.");
+        } else if (valorManoCasa > valorManoJugador) {
+            System.out.println("¡La casa gana! Su mano es mayor que la del jugador.");
         } else {
-            System.out.println("¡" + jugador.getNombre() + " gana!");
+            System.out.println("Es un empate. Nadie gana.");
         }
     }
+
+
+    private Carta darCarta() {
+        return mazo.remove(mazo.size() - 1);
+    }
+
+    private int calcularValorMano(List<Carta> mano) {
+        int valorMano = 0;
+        int ases = 0;
+
+        for (Carta carta : mano) {
+            valorMano += carta.getValor();
+            if (carta.getValor() == 11) {
+                ases++;
+            }
+        }
+
+        // Ajustar el valor de los ases si se supera 21
+        while (valorMano > CARTA_MAXIMA && ases > 0) {
+            valorMano -= 10;
+            ases--;
+        }
+
+        return valorMano;
+    }
 }
+
