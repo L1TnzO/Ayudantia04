@@ -12,4 +12,9 @@ class Carta {
     public int getValor() {
         return valor;
     }
+
+    public String getPinta() {
+        return pinta;
+    }
 }
+
