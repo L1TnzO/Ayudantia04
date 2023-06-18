@@ -5,12 +5,15 @@ import java.util.Scanner;
 public class Casino {
     public void iniciar() {
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("¡Bienvenido al casino! Por favor, ingresa tu nombre:");
+        String nombre = scanner.nextLine();
+
+        JugadorBullseye jugadorBullseye = null; // Inicialización predeterminada
+
         boolean salir = false;
 
         while (!salir) {
-            System.out.println("¡Bienvenido al casino! Por favor, ingresa tu nombre:");
-            String nombre = scanner.nextLine();
-
             System.out.println("Hola, " + nombre + ". ¿A qué juego deseas jugar?");
             System.out.println("1. Blackjack");
             System.out.println("2. Bullseye");
@@ -26,7 +29,9 @@ public class Casino {
                     blackjack.jugar();
                     break;
                 case 2:
-                    JugadorBullseye jugadorBullseye = new JugadorBullseye(nombre, 50000, new Caballo("Rayo", 1, "Rojo"));
+                    if (jugadorBullseye == null) {
+                        jugadorBullseye = new JugadorBullseye(nombre, 50000, new Caballo("Rayo", 1, "Rojo"));
+                    }
                     Bullseye bullseye = new Bullseye(jugadorBullseye, 0, 0);
 
                     boolean juegoBullseye = true;
@@ -64,5 +69,6 @@ public class Casino {
         System.out.println("¡Gracias por jugar en el casino!");
     }
 }
+
 
 
