@@ -51,12 +51,12 @@ public class Bullseye implements Juego {
     }
 
     public void jugar() {
-        if (caballoElegido < 1 || caballoElegido > caballos.size()) {
+        if (!Validaciones.esOpcionValida(caballoElegido, 1, caballos.size())) {
             System.out.println("Selección de caballo inválida. Inténtalo nuevamente.");
             return;
         }
 
-        if (apuestaElegida < 1 || apuestaElegida > apuestas.length) {
+        if (!Validaciones.esOpcionValida(apuestaElegida, 1, apuestas.length)) {
             System.out.println("Selección de apuesta inválida. Inténtalo nuevamente.");
             return;
         }
@@ -64,6 +64,13 @@ public class Bullseye implements Juego {
         jugador.setCaballo(caballos.get(caballoElegido - 1));
         int apuesta = apuestas[apuestaElegida - 1];
         int multiplicador = multiplicadores[apuestaElegida - 1];
+
+        // Validar que se tengan suficientes fondos para la apuesta
+        if (!Validaciones.tieneSuficientesFondos(apuesta, jugador.getDinero())) {
+            System.out.println("No tienes suficientes fondos para realizar esa apuesta.");
+            return;
+        }
+
         // Generar un caballo ganador aleatorio
         int caballoGanador = (int)(Math.random() * 6 + 1);
 
