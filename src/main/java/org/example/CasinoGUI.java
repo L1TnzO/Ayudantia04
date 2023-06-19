@@ -11,6 +11,7 @@ public class CasinoGUI {
     private JButton exitButton;
     private JTextField nameField;
     private JLabel nameLabel;
+    private JLabel welcomeLabel;
     private Casino casino;
 
     public CasinoGUI(Casino casino) {
@@ -27,15 +28,20 @@ public class CasinoGUI {
         nameLabel = new JLabel("Enter your name:");
         nameField = new JTextField();
 
+        welcomeLabel = new JLabel();  // NEW
+        panel.add(welcomeLabel);  // NEW
+
         blackjackButton = new JButton("Blackjack");
         blackjackButton.addActionListener(e -> {
             casino.setNombre(nameField.getText());
+            welcomeLabel.setText("Welcome to the Casino, " + nameField.getText() + "!");  // NEW
             casino.abrirBlackjack();
         });
 
         bullseyeButton = new JButton("Bullseye");
         bullseyeButton.addActionListener(e -> {
             casino.setNombre(nameField.getText());
+            welcomeLabel.setText("Welcome to the Casino, " + nameField.getText() + "!");  // NEW
             casino.abrirBullseye();
         });
 
