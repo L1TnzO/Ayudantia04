@@ -25,23 +25,23 @@ public class CasinoGUI {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new GridLayout(0, 1));
 
-        nameLabel = new JLabel("Enter your name:");
+        nameLabel = new JLabel("Ingrese su nombre:");
         nameField = new JTextField();
 
-        welcomeLabel = new JLabel();  // NEW
-        panel.add(welcomeLabel);  // NEW
+        welcomeLabel = new JLabel();
+        panel.add(welcomeLabel);
 
         blackjackButton = new JButton("Blackjack");
         blackjackButton.addActionListener(e -> {
             casino.setNombre(nameField.getText());
-            welcomeLabel.setText("Welcome to the Casino, " + nameField.getText() + "!");  // NEW
+            welcomeLabel.setText("Bienvenido al casino, " + nameField.getText() + "!");
             casino.abrirBlackjack();
         });
 
         bullseyeButton = new JButton("Bullseye");
         bullseyeButton.addActionListener(e -> {
             casino.setNombre(nameField.getText());
-            welcomeLabel.setText("Welcome to the Casino, " + nameField.getText() + "!");  // NEW
+            welcomeLabel.setText("Bienvenido al casino, " + nameField.getText() + "!");
             casino.abrirBullseye();
         });
 
